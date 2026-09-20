@@ -18,6 +18,7 @@ while getopts ":n:h" opt; do
             printf -v number "%03d" "$OPTARG"
 
             found=0
+            overall_status=0
 
             for source in "./${number}."*.c; do
                 [[ -e "$source" ]] || continue
@@ -30,7 +31,8 @@ while getopts ":n:h" opt; do
 
                 if [[ $? -ne 0 ]]; then
                     log "Compilation failed."
-                    exit 1
+                    overall_status=1
+                    continue
                 fi
 
                 log "Executing $executable..."
@@ -43,13 +45,17 @@ while getopts ":n:h" opt; do
                 log "Removing $executable..."
                 rm -f "$executable"
 
-                exit "$status"
+                if [[ $status -ne 0 ]]; then
+                    overall_status=1
+                fi
             done
 
             if [[ "$found" -eq 0 ]]; then
                 log "Error: no matching C source file found for ${number}"
                 exit 1
             fi
+
+            exit "$overall_status"
             ;;
 
         h)
