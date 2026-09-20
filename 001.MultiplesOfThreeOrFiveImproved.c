@@ -7,11 +7,11 @@
 
 #include <stdio.h>
 
-const int N = 1000;
+const int N = 999;
 
 int sumDivisibleBy(int n)
 {
-    int p = target / n;
+    int p = N / n;
     return n * (p * (p + 1)) / 2;
 }
 
