@@ -9,7 +9,7 @@ log() {
 }
 
 usage() {
-    log "this is help message"
+    log "Usage: $0 -n <problem_number>"
 }
 
 while getopts ":n:h" opt; do
