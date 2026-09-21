@@ -27,7 +27,7 @@ while getopts ":n:h" opt; do
                 executable="${source%.c}"
 
                 log "Compiling $source..."
-                gcc "$source" -o "$executable"
+                gcc -lm "$source" -o "$executable"
 
                 if [[ $? -ne 0 ]]; then
                     log "Compilation failed."
